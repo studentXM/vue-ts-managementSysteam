@@ -2,6 +2,7 @@
   <div>
     <MyTest></MyTest>
     <p>{{ $store.state.vname }}</p>
+    <el-button type="primary">123123</el-button>
     <router-link to="/login">登陆</router-link>
     <router-link to="/main">主页</router-link>
     <router-view></router-view>
