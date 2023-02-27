@@ -1,13 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <div>
+    <MyTest></MyTest>
+    <p>{{ $store.state.vname }}</p>
+    <router-link to="/login">登陆</router-link>
+    <router-link to="/main">主页</router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import MyTest from '@/components/test.vue'
 export default defineComponent({
   name: 'App',
-  components: {}
+  components: { MyTest }
 })
 </script>
 
