@@ -11,9 +11,9 @@ interface YHInterceptors<T = AxiosResponse> {
     config: InternalAxiosRequestConfig
   ) => InternalAxiosRequestConfig
 
-  requestInterceptorCatch?: (error: any) => any
+  requestInterceptorCatch?: (error: Error) => Error
   responseInterceptor?: (config: T) => T
-  responseInterceptorCatch?: (error: any) => any
+  responseInterceptorCatch?: (error: Error) => Error
   showLoading?: boolean
 }
 

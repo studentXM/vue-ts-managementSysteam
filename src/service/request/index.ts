@@ -75,6 +75,7 @@ class YHRequest {
         config = config.interceptors.requestInterceptor(config as any)
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.instance.request<any, T>(config).then(
         (res) => {
           if (config.interceptors?.responseInterceptor) {
