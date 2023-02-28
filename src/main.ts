@@ -2,11 +2,27 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import store from '@/store'
 import router from './router'
-import '@/service/index'
+import yhRequest from '@/service/index'
 const app = createApp(App)
 
 app.use(router)
 app.use(store)
-console.log(process.env.VUE_APP_BASE_URL)
-console.log(process.env.VUE_APP_BASE_NAME)
+interface Data {
+  data: any
+}
+yhRequest
+  .request<Data>({
+    method: 'GET',
+    url: '',
+    interceptors: {
+      requestInterceptor: (config) => {
+        console.log('接口拦截器')
+        return config
+      }
+    }
+  })
+  .then((res) => {
+    console.log(res)
+  })
+
 app.mount('#app')
