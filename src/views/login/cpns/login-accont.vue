@@ -1,11 +1,6 @@
 <template>
   <div>
-    <el-form
-      :inline="true"
-      :rules="rules"
-      :model="admin"
-      class="demo-form-inline"
-    >
+    <el-form :rules="rules" :model="admin" ref="formRef">
       <el-form-item label="账号" prop="user">
         <el-input v-model="admin.user" placeholder="账号" />
       </el-form-item>
@@ -16,24 +11,39 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import type { FormRules } from 'element-plus'
+import { defineComponent, reactive, ref } from 'vue'
+import { ElForm } from 'element-plus'
 export default defineComponent({
   setup() {
     const admin = reactive({ user: '', password: '' })
-    const rules = reactive<FormRules>({
+    const rules = reactive({
       user: [
         {
           required: true,
-          message: '账号有错',
+          message: '账号规则有错',
+          trigger: 'blur',
+          min: 1
+        }
+      ],
+      password: [
+        {
+          required: true,
+          message: '密码规则有错',
           trigger: 'blur',
           min: 1
         }
       ]
     })
-
-    return { admin, rules }
+    const formRef = ref<InstanceType<typeof ElForm>>()
+    const loginAccont = () => {
+      // form组件有个函数 可以进行验证 返回布尔值
+      formRef.value?.validate((res) => {
+        console.log(res)
+      })
+    }
+    return { admin, rules, loginAccont, formRef }
   }
 })
 </script>
-<style></style>
+<style lang="less" scoped></style>
+<style lang="less"></style>
