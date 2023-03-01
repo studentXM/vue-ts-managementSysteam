@@ -60,14 +60,12 @@ class YHRequest {
   }
   request<T>(config: YHRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
-      // 动画开关不为undefined 则设置对应值
-      if (config.showLoading !== undefined) {
+      // 动画开关设置对应值
+      if (config.showLoading === false) {
         this.showLoading = config.showLoading
       } else {
-        //如果没有传开关值 就默认显示动画
         this.showLoading = true
       }
-      config.showLoading = this.showLoading
       // 调用接口传递的拦截器 并且赋值返回值
       if (config.interceptors?.requestInterceptor) {
         // 因为axios更新的缘故 这里需要做一个类型断言
@@ -93,16 +91,16 @@ class YHRequest {
   }
 
   get<T>(config: YHRequestConfig): Promise<T> {
-    return this.instance.request({ ...config, method: 'GET' })
+    return this.request({ ...config, method: 'GET' })
   }
   post<T>(config: YHRequestConfig): Promise<T> {
-    return this.instance.request({ ...config, method: 'POST' })
+    return this.request({ ...config, method: 'POST' })
   }
   delete<T>(config: YHRequestConfig): Promise<T> {
-    return this.instance.request({ ...config, method: 'DELETE' })
+    return this.request({ ...config, method: 'DELETE' })
   }
   patch<T>(config: YHRequestConfig): Promise<T> {
-    return this.instance.request({ ...config, method: 'PATCH' })
+    return this.request({ ...config, method: 'PATCH' })
   }
 }
 

@@ -16,9 +16,9 @@
           <loginAccont ref="accountRef"></loginAccont>
         </el-tab-pane>
         <!-- 手机登录 -->
-        <el-tab-pane label="手机号登陆" name="phone"
-          ><loginPhone ref="phoneRef"></loginPhone
-        ></el-tab-pane>
+        <el-tab-pane label="手机号登陆" name="phone">
+          <loginPhone ref="phoneRef"></loginPhone>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <div class="password-group">
@@ -44,7 +44,7 @@ export default defineComponent({
     let currentTab = ref('accont')
     const handleLogin = () => {
       if (currentTab.value === 'accont') {
-        accountRef.value?.loginAccont()
+        accountRef.value?.loginAccont(swicth.value)
       } else {
         phoneRef.value?.loginPhone()
       }
@@ -54,20 +54,21 @@ export default defineComponent({
 })
 </script>
 <style lange="less" scoped>
-.login-panel {
-}
 h2 {
   text-align: center;
 }
+
 .box {
   width: 320px;
   background: white;
 }
+
 .custom-tabs-label {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .password-group {
   display: flex;
   justify-content: space-between;
@@ -77,6 +78,7 @@ h2 {
   height: 32px;
   cursor: pointer;
 }
+
 .submit {
   width: 100%;
 }

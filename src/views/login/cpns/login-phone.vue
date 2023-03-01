@@ -5,6 +5,7 @@
       :model="admin"
       label-width="65px"
       label-position="left"
+      ref="formRef"
     >
       <el-form-item label="手机号" prop="phone">
         <el-input v-model="admin.phone" placeholder="手机号" />
@@ -19,10 +20,14 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
+import { ElForm } from 'element-plus'
+import { useStore } from 'vuex'
 export default defineComponent({
   setup() {
+    const store = useStore()
     const admin = reactive({ phone: '', code: '' })
+    const formRef = ref<InstanceType<typeof ElForm>>()
     const rules = reactive({
       phone: [
         {
@@ -42,9 +47,14 @@ export default defineComponent({
       ]
     })
     const loginPhone = () => {
-      console.log('手机号登录')
+      formRef.value?.validate((vaild) => {
+        if (vaild) {
+          // 记住密码
+          store.dispatch('login/phoneLogin', { name: "'手机登陆" })
+        }
+      })
     }
-    return { admin, rules, loginPhone }
+    return { admin, rules, loginPhone, formRef }
   }
 })
 </script>
@@ -53,6 +63,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
 }
+
 .send-code {
   margin-left: 6px;
 }

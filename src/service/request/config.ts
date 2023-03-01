@@ -4,7 +4,7 @@ const TIME_OUT = 10000
 const env = process.env.NODE_ENV
 
 if (env === 'development') {
-  BASE_URL = 'http://192.168.101.23:3000/'
+  BASE_URL = '/api'
 } else if (env === 'production') {
   BASE_URL = 'http://coderwhy.org/prod'
 } else {
