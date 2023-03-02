@@ -24,7 +24,7 @@ const router = createRouter({
   history: createWebHashHistory()
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   console.log('路由守卫')
   const token = window.localStorage.getItem('token')
   // 跳转至非登陆页面

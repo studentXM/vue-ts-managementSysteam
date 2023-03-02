@@ -32,6 +32,7 @@ const loginModle: Module<ILoginState, IRootState> = {
     }
   },
   actions: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async accountLogin({ commit }, payload: any) {
       const user = await accountLoginRequest(payload)
       const { id, token } = user.data
@@ -54,8 +55,7 @@ const loginModle: Module<ILoginState, IRootState> = {
       router.push('/main')
     },
 
-    async phoneLogin({ commit }, payload: any) {
-      console.log(payload)
+    async phoneLogin() {
       console.log('手机号登陆')
     },
     // 刷新以后 重新从 存储中拿得token以及其他信息 存在vuex中
