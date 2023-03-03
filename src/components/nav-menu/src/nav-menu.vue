@@ -15,12 +15,17 @@
       text-color="#fff"
       :collapse="false"
     >
-      <template v-for="item in userMenus" :key="item.id">
+      <template v-for="(item, index) in userMenus" :key="item.id">
         <template v-if="item.type === 1">
           <el-sub-menu :index="item.id + ''">
             <template #title>
               <div>
-                <el-icon><Monitor /></el-icon>
+                <el-icon>
+                  <component
+                    :is="iconNames[index]"
+                    style="width: 16px; height: 16px"
+                  ></component
+                ></el-icon>
               </div>
               <span>{{ item.name }}</span>
             </template>
@@ -35,10 +40,6 @@
 
         <template v-else-if="item.type === 2">
           <el-menu-item :index="item.id + ''">
-            <component
-              :is="item.icon"
-              style="width: 16px; height: 16px"
-            ></component>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
@@ -48,20 +49,19 @@
 </template>
 
 <script lang="ts">
-// import { computed } from 'vue'
-import { Monitor } from '@element-plus/icons-vue'
-import { useStore } from '@/store'
+import { useStore, icons } from '@/store'
 import menusCpn from './cpns/menuComponents.vue'
+
 export default {
-  components: { menusCpn, Monitor },
+  components: { menusCpn },
   setup() {
     const store = useStore()
+    const iconNames = icons()
     const userMenus = store.state.login.userMenus
-    // computed:{
 
-    // }
     return {
-      userMenus
+      userMenus,
+      iconNames
     }
   }
 }

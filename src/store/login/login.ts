@@ -1,7 +1,6 @@
 import { Module } from 'vuex'
 import { ILoginState } from './types'
 import { IRootState } from '../types'
-
 import {
   accountLoginRequest,
   requestUserInfoById,
