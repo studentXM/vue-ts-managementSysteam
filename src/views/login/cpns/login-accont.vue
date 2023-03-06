@@ -15,6 +15,7 @@ import { defineComponent, reactive, ref } from 'vue'
 import { ElForm } from 'element-plus'
 import localCache from '@/utils/cache'
 import { useStore } from 'vuex'
+import { setupStore } from '@/store'
 export default defineComponent({
   setup() {
     const store = useStore()
@@ -57,6 +58,7 @@ export default defineComponent({
             // 成功登陆时
             localCache.setCache('user', admin.user)
             localCache.setCache('password', admin.password)
+            setupStore()
           } else {
             localCache.deleteCache('user')
             localCache.deleteCache('password')

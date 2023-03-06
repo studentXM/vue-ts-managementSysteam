@@ -1,8 +1,5 @@
 <template>
   <div class="nav-menu">
-    <div class="logo" style="text-align: center">
-      <span>企业后台系统</span>
-    </div>
     <!-- 递归组件 可以显示所有的菜单 因为太深的菜单 并没太大的实际意义 反而增加了页面 所以我只用了二级菜单 -->
     <!-- <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="false">
       <menusCpn :menus="userMenus"></menusCpn>
@@ -13,8 +10,17 @@
       active-text-color="#409eff"
       background-color="#113a62"
       text-color="#fff"
-      :collapse="false"
+      :collapse="isCollapse"
+      :unique-opened="true"
+      :style="{
+        'border-right': !isCollapse
+          ? 'solid 1px var(--el-menu-border-color)'
+          : 'none'
+      }"
     >
+      <div class="logo" style="text-align: center">
+        <span>企业后台系统</span>
+      </div>
       <template v-for="(item, index) in userMenus" :key="item.id">
         <template v-if="item.type === 1">
           <el-sub-menu :index="item.id + ''">
@@ -49,11 +55,18 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { useStore, icons } from '@/store'
 import menusCpn from './cpns/menuComponents.vue'
 
-export default {
+export default defineComponent({
   components: { menusCpn },
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
     const store = useStore()
     const iconNames = icons()
@@ -64,14 +77,14 @@ export default {
       iconNames
     }
   }
-}
+})
 </script>
 
 <style lang="less" scoped>
 .logo {
   height: 60px;
   line-height: 60px;
-  border-right: solid 1px var(--el-menu-border-color);
+  color: white;
   // background: #235281;
   // color: white;
   position: relative;
@@ -87,7 +100,9 @@ export default {
 //   left: calc(50% - 5px);
 // }
 .nav-menu {
+  width: 100%;
   height: 100%;
+
   .el-menu {
     height: calc(100% - 60px);
   }

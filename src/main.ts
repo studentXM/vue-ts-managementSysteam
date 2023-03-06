@@ -15,7 +15,10 @@ app.use(store)
 // 刷新以后 重新从 存储中拿得token以及其他信息 存在vuex中
 setupStore()
 // 把icon图标全局注册
-icons().forEach((key: string) => {
+const AllIcon = icons()
+//添加图标
+AllIcon.push('Fold', 'Unfold')
+AllIcon.forEach((key: string) => {
   let iconComponent = icon[key as keyof typeof icon]
   // 如果有不存在的icon就给默认值图标
   if (!iconComponent) {
